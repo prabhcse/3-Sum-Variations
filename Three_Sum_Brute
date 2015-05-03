@@ -1,0 +1,53 @@
+  // Check for All, Complete Search
+	public static void Three_Sum_Brute()
+	{
+		BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+		List<Integer> arr = new ArrayList<Integer>();
+		System.out.println("Give the Sum:");
+		String get;
+		int Sum = 0;
+		try {
+			Sum = Integer.parseInt(read.readLine());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
+			System.out.println("Give the array");
+			while( !(get = read.readLine()).equals("0") )
+			{
+				arr.add(Integer.parseInt(get));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Sorting (TimSort)
+		Collections.sort(arr);
+		
+		System.out.println("\n Sum:"+Sum);
+		System.out.println("\n Input Array:"+arr);
+		int size = arr.size();
+		StringBuffer out = new StringBuffer();
+		for(int i = 0; i < size-2 ; i++)
+		{
+			for(int j = i+1; j < size-1 ; j++)
+			{
+				for(int k = j+1; k < size ; k++)
+				{
+					if(Sum == (arr.get(i)+arr.get(j)+arr.get(k)))
+					{
+						out.append(arr.get(i)).append(",").append(arr.get(j)).append(",").append(arr.get(k)).append(". ");
+					}
+				}
+			}
+		}
+		if(out.length() > 0)
+		{
+			System.out.println("\nOutput:"+out);
+		}
+		else
+		{
+			System.out.println("3-Sum not found");
+		}
+	}
