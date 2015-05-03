@@ -1,0 +1,84 @@
+  // For two values Sum, run Binary Search for the third
+	// O(n^2 Log n)
+	public static void Three_Sum_2()
+	{
+		BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+		List<Integer> arr = new ArrayList<Integer>();
+		System.out.println("Give the Sum:");
+		String get;
+		int Sum = 0;
+		try {
+			Sum = Integer.parseInt(read.readLine());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
+			System.out.println("Give the array");
+			while( !(get = read.readLine()).equals("0") )
+			{
+				arr.add(Integer.parseInt(get));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Sorting (TimSort)
+		Collections.sort(arr);
+		
+		System.out.println("\n Sum:"+Sum);
+		System.out.println("\n Input Array:"+arr);
+		
+		StringBuffer out = new StringBuffer();
+		int size = arr.size();
+		
+		for(int i = 0; i < size-2; i++)
+		{
+			for( int j = i+1 ; j < size-1; j++)
+			{
+			  // Binary Search
+				int third = Searching(arr, j+1, size-1, Sum-(arr.get(i)+arr.get(j)));
+				if(third > 0)
+				{
+					out.append(arr.get(i)).append(",").append(arr.get(j)).append(",").append(third).append(". ");
+				}
+			}
+		}
+		if(out.length() > 0)
+		{
+			System.out.println("\nOutput: "+out.toString());
+		}
+		else
+		{
+			System.out.println("\n3-Sum not found");
+		}
+		
+	}
+	// Binary Search
+	public static int Searching(List<Integer> arr, int start, int end, int sum)
+	{
+	  // Sanity check
+		if(sum < 0)
+		{
+			return -1;
+		}
+		// Stop condition
+		if(start <= end)
+		{
+			int mid = (start + end) / 2;
+			if( arr.get(mid) == sum )
+			{
+				return arr.get(mid);
+			}
+			else if( arr.get(mid) < sum )
+			{
+				return Searching(arr, mid+1, end, sum);
+			}
+			else if( arr.get(mid) > sum )
+			{
+				return Searching(arr, start, mid-1, sum);
+			}
+		}
+		// if the element not found
+		return -1;
+	}
