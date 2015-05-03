@@ -1,0 +1,103 @@
+  // For each value in array, run 2-Sum for the other two
+	// O(n^2)
+	public static void Three_Sum_1()
+	{
+		BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+		List<Integer> arr = new ArrayList<Integer>();
+		System.out.println("Give the Sum:");
+		String get;
+		int Sum = 0;
+		try {
+			Sum = Integer.parseInt(read.readLine());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
+		// Can be changed to include Automated array build up
+		// Or Reading from a file, need to use EOF
+			System.out.println("Give the array");
+			while( !(get = read.readLine()).equals("0") )
+			{
+				arr.add(Integer.parseInt(get));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Sorting (TimSort)
+		Collections.sort(arr);
+		
+		System.out.println("\n Sum:"+Sum);
+		System.out.println("\n Input Array:"+arr);
+		
+		StringBuffer out = new StringBuffer();
+		int size = arr.size();
+		if(size <= 2)
+		{
+			System.out.println("Insufficient array size");
+			return;
+		}
+		else if(size == 3)
+		{
+			if(Sum == (arr.get(1)+arr.get(2)+ arr.get(3)))
+			{
+				System.out.println("The Array elements sum to "+Sum);
+			}
+			else
+			{
+				System.out.println("3-Sum not found");
+				return;
+			}
+		}
+		else
+		{
+			// Sanity Check
+			if( Sum < (arr.get(0)+arr.get(1)+arr.get(2)) || Sum > (arr.get(size-1)+ arr.get(size-2) + arr.get(size-3)))
+			{
+				System.out.println("3-Sum not found");
+				return;
+			}
+		}
+		
+		// Without repetition
+		for(int i = 0; i < size; i++)
+		{
+			int one = arr.get(i);
+			int j = i+1;
+			int k = size-1;
+			// 2-Sum
+			while( i < j && j < k )
+			{
+				
+				//System.out.println(one +" + "+ arr.get(j) +" + "+ arr.get(k)+" + "+Sum);
+				
+				if((one + arr.get(j) + arr.get(k)) == Sum)
+				{
+					out.append(one).append(",").append(arr.get(j)).append(",").append(arr.get(k)).append(". ");
+					j++;
+					k--;
+				}
+				else if((one + arr.get(j) + arr.get(k)) < Sum)
+				{
+					j++;
+				}
+				else if((one + arr.get(j) + arr.get(k)) > Sum)
+				{
+					k--;
+				}
+			}
+			// 2-Sum
+		}
+		
+		if(out.length() > 0)
+		{
+			System.out.println("\nOutput:\n"+out.toString());
+		}
+		else
+		{
+			System.out.println("\n3-Sum not found");
+		}
+		
+		
+	}
