@@ -67,7 +67,7 @@
 			int j = i+1;
 			int k = size-1;
 			// 2-Sum
-			while( && j < k )
+			while( j < k )
 			{
 				
 				//System.out.println(one +" + "+ arr.get(j) +" + "+ arr.get(k)+" + "+Sum);
